@@ -46,4 +46,18 @@ data = combine_data(setting, current_test_split=0, splits=5)
 
 X_train, y_train = data.get_train_set()
 X_test, y_test = data.get_test_set()
+```
 
+## Feature Selection Training
+
+The file `updated_training.py` adapts the model so that it only considers selected features.
+
+## Configuration
+
+The script creates a minimal config file settings_tt.py that defines a single variable:
+
+```python
+#Create a dummy settings_tt.py with 'place' defined as 'M'
+with open("settings_tt.py", "w") as f:
+    f.write("place = 'M'\n")
+```
