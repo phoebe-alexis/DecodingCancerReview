@@ -48,7 +48,7 @@ X_train, y_train = data.get_train_set()
 X_test, y_test = data.get_test_set()
 ```
 
-## Feature Selection Training
+# Feature Selection Training
 
 The file `updated_training.py` adapts the model so that it only considers selected features.
 
@@ -95,3 +95,24 @@ Key Steps:
 ## Feature Selection via LRP
 
 The `select_features.py` script identifies the top-K most important features based on Layer-wise Relevance Propagation (LRP) across all cross-validation folds.
+
+## Retrain Model with LRP-Selected Features
+
+The `retain_selected_features.py` script evaluates how well the model performs when trained on only the top-K features selected using LRP (see select_features_from_lrp.py).
+
+What It Does:
+
+1. Loads the full synthetic dataset from updated_data.py.
+2. Filters input features to keep only those selected based on LRP.
+3. Reconstructs the dataset with reduced features.
+4. Trains a new model from scratch (no weight reuse) over 5 CV folds.
+5. Calculates C-index per fold to assess predictive performance.
+
+### Notes:
+The model is trained from scratch (no pre-loaded weights) to avoid shape mismatch from feature reduction.
+
+The variable selected_features must be defined from `select_features_from_lrp.py`.
+
+## Use Case:
+
+This helps determine whether fewer, more relevant features (identified via LRP) can maintain or improve model performance, supporting interpretability without sacrificing accuracy.
