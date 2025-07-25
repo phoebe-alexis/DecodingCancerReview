@@ -93,3 +93,5 @@ Key Steps:
 6. Plots a histogram showing the distribution across patients.
 
 ## Feature Selection via LRP
+
+The `select_features.py` script identifies the top-K most important features based on Layer-wise Relevance Propagation (LRP) across all cross-validation folds.
