@@ -61,3 +61,18 @@ The script creates a minimal config file settings_tt.py that defines a single va
 with open("settings_tt.py", "w") as f:
     f.write("place = 'M'\n")
 ```
+
+## Full Pipeline
+
+The `run_full_pipeline.py` script runs the complete pipeline using synthetic data:
+
+1. Generates synthetic data with 50 features and 5 cancer types.
+2. Splits data into:
+
+- 80% for cross-validation (CV)
+- 20% for external validation
+
+3. Trains a simple neural Cox model over 5 folds.
+4. Evaluates performance using the Concordance Index.
+5. Applies Layer-wise Relevance Propagation (LRP) for interpretability.
+6. Summarizes average model performance across folds.
