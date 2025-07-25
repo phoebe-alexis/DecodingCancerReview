@@ -76,3 +76,20 @@ The `run_full_pipeline.py` script runs the complete pipeline using synthetic dat
 4. Evaluates performance using the Concordance Index.
 5. Applies Layer-wise Relevance Propagation (LRP) for interpretability.
 6. Summarizes average model performance across folds.
+
+## LRP Feature Contribution Analysis
+
+The `analyze_lrp_contributions.py script` analyzes the LRP scores from `./results/LRP/` to answer:
+
+How many features contribute to 90% of the model’s prediction relevance for each sample?
+
+Key Steps:
+
+1. Loads LRP scores from a CSV.
+2. Sorts features per sample by relevance.
+3. Calculates cumulative LRP % for each feature.
+4. Counts how many features are needed to reach 90% cumulative relevance.
+5. Prints summary stats (mean, median, min, max).
+6. Plots a histogram showing the distribution across patients.
+
+## Feature Selection via LRP
