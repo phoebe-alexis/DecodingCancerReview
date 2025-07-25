@@ -1,14 +1,15 @@
 # Revised DecodingCancer
 
-This project extends the work done in [DecodingCancer](https://github.com/PhGK/DecodingCancer), aiming to [briefly describe your specific goal or contribution].
+This project extends the work done in [DecodingCancer](https://github.com/PhGK/DecodingCancer), aiming to leverage key and interactions.
 
 ## Related Work
 
-The original repository [DecodingCancer](https://github.com/PhGK/DecodingCancer) implements [briefly describe what it does].  
+The [DecodingCancer](https://github.com/PhGK/DecodingCancer) repository is the official codebase supporting the “Decoding pan‑cancer treatment outcomes using multimodal real‑world data and explainable AI” study. It implements deep learning models for survival analysis using multimodal clinical data and applies explainable AI techniques, specifically Layer-wise Relevance Propagation (LRP), to identify and interpret the contributions of individual clinical markers to patient prognosis across multiple cancer types.
+
 This project builds upon it by:
 
-- streamlining the model using feature selection
-- highlighting other models that consider feature interactions
+1. streamlining the model using feature selection
+2. highlighting other models that consider feature interactions
 
 ## Reproducibility
 
@@ -48,7 +49,7 @@ X_train, y_train = data.get_train_set()
 X_test, y_test = data.get_test_set()
 ```
 
-# Feature Selection Training
+# 1. Feature Selection Training
 
 The file `updated_training.py` adapts the model so that it only considers selected features.
 
