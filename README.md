@@ -1,6 +1,6 @@
 # Revised DecodingCancer
 
-This project extends the work done in [DecodingCancer](https://github.com/PhGK/DecodingCancer), aiming to leverage key and interactions.
+This project extends the work done in [DecodingCancer](https://github.com/PhGK/DecodingCancer), aiming to leverage identifiable key variables and interactions.
 
 ## Related Work
 
