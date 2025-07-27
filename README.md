@@ -117,3 +117,7 @@ The variable selected_features must be defined from `select_features_from_lrp.py
 ## Use Case:
 
 This helps determine whether fewer, more relevant features (identified via LRP) can maintain or improve model performance, supporting interpretability without sacrificing accuracy.
+
+# Alternative models for Survival prediction
+
+
