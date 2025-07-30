@@ -1,0 +1,106 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import matplotlib.gridspec as gridspec
+from matplotlib.colors import LinearSegmentedColormap
+
+# === 1. Load LRP results ===
+df = pd.read_csv('./results/LRP/LRP_Simple Model_scores_input_0.csv')
+
+# === 2. Get SHAP test sample names ===
+shap_sample_names = cv_data.get_test_names()  # Assumes cv_data is available
+
+# === 3. Replace LRP sample_name with real IDs ===
+lrp_sample_keys = df['sample_name'].unique()
+sample_map = dict(zip(lrp_sample_keys, shap_sample_names))
+df['sample_name'] = df['sample_name'].map(sample_map)
+
+# === 4. Pivot LRP matrix ===
+lrp_matrix = df.pivot_table(
+    index='sample_name',
+    columns='therapy_diagnostics_antero',
+    values='LRP',
+    aggfunc='mean'
+).fillna(0)
+
+# === 5. SHAP matrix ===
+shap_matrix = pd.DataFrame(
+    shap_values.values,  # Assumes shap_values is defined
+    columns=cv_data.f_feature_names,
+    index=shap_sample_names
+)
+
+# === 6. Align rows ===
+common_samples = lrp_matrix.index.intersection(shap_matrix.index)
+lrp_matrix = lrp_matrix.loc[common_samples]
+shap_matrix = shap_matrix.loc[common_samples]
+
+# === 7. Align and filter features ===
+common_features = lrp_matrix.columns.intersection(shap_matrix.columns)
+common_features = [f for f in common_features if 'cancer' not in f.lower()]
+lrp_matrix = lrp_matrix[common_features]
+shap_matrix = shap_matrix[common_features]
+
+# === 8. Select top 25 features by combined global importance ===
+global_importance = (lrp_matrix.abs().mean() + shap_matrix.abs().mean()).sort_values(ascending=False)
+top_features = global_importance.head(25).index
+
+lrp_top = lrp_matrix[top_features]
+shap_top = shap_matrix[top_features]
+
+# === 9. Normalize rows ===
+lrp_norm = lrp_top.div(lrp_top.abs().sum(axis=1), axis=0).fillna(0)
+shap_norm = shap_top.div(shap_top.abs().sum(axis=1), axis=0).fillna(0)
+
+# === 10. Compute normalized difference ===
+diff_norm = shap_norm - lrp_norm
+
+# === 11. Custom deep coolwarm colormap ===
+deep_coolwarm = LinearSegmentedColormap.from_list(
+    "deep_coolwarm",
+    [(0.0, '#001f4d'), (0.5, '#f7f7f7'), (1.0, '#8B0000')]
+)
+
+# === 12. Plot heatmaps with shared colorbar ===
+N = min(50, len(common_samples))  # number of samples to show
+
+# Compute symmetric vmin/vmax across all matrices
+combined = np.vstack([
+    lrp_norm.iloc[:N].values,
+    shap_norm.iloc[:N].values,
+    diff_norm.iloc[:N].values
+])
+vlim = np.max(np.abs(combined))
+
+# Setup figure layout
+fig = plt.figure(figsize=(24, 8))
+gs = gridspec.GridSpec(1, 4, width_ratios=[1, 1, 1, 0.03], wspace=0.3)
+
+# LRP heatmap
+ax0 = plt.subplot(gs[0])
+sns.heatmap(lrp_norm.iloc[:N], ax=ax0, cmap=deep_coolwarm, center=0, vmin=-vlim, vmax=vlim, cbar=False)
+ax0.set_title("Normalized LRP Saliency Map")
+ax0.set_xlabel("Top 25 Features")
+ax0.set_ylabel("Samples")
+
+# SHAP heatmap
+ax1 = plt.subplot(gs[1], sharey=ax0)
+sns.heatmap(shap_norm.iloc[:N], ax=ax1, cmap=deep_coolwarm, center=0, vmin=-vlim, vmax=vlim, cbar=False)
+ax1.set_title("Normalized SHAP Saliency Map")
+ax1.set_xlabel("Top 25 Features")
+
+# Difference heatmap
+ax2 = plt.subplot(gs[2], sharey=ax0)
+sns.heatmap(diff_norm.iloc[:N], ax=ax2, cmap=deep_coolwarm, center=0, vmin=-vlim, vmax=vlim, cbar=False)
+ax2.set_title("SHAP - LRP (Normalized)")
+ax2.set_xlabel("Top 25 Features")
+
+# Shared colorbar
+cax = plt.subplot(gs[3])
+sm = plt.cm.ScalarMappable(cmap=deep_coolwarm, norm=plt.Normalize(vmin=-vlim, vmax=vlim))
+sm.set_array([])
+plt.colorbar(sm, cax=cax, label='Attribution (Normalized)')
+
+plt.tight_layout()
+plt.show()
