@@ -118,6 +118,10 @@ The variable selected_features must be defined from `select_features_from_lrp.py
 
 This helps determine whether fewer, more relevant features (identified via LRP) can maintain or improve model performance, supporting interpretability without sacrificing accuracy.
 
-# Alternative models for Survival prediction
+# 2. Alternative models for Survival prediction
+
+
+
+# 3. Expanding the Explainability Framework
 
 
