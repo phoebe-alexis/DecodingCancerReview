@@ -124,4 +124,18 @@ This helps determine whether fewer, more relevant features (identified via LRP) 
 
 # 3. Expanding the Explainability Framework
 
-This `saliency.py`and `normalized_saliency.py` compares two feature attribution methods—LRP (Layer-wise Relevance Propagation) and SHAP (SHapley Additive exPlanations)—on the same dataset.
+This `saliency.py`and `normalized_saliency.py` compares two feature attribution methods—LRP (Layer-wise Relevance Propagation) and SHAP (SHapley Additive exPlanations).
+
+1. Load LRP Results
+2. Get SHAP Sample Names
+3. Map Real Sample Names
+4. Pivot LRP Matrix
+5. Build SHAP Matrix
+6. Align Samples
+7. Align and Filter Features
+8. Select Top 25 Features
+9. Normalize Rows
+10. Compute Difference
+11. Define Custom Colormap
+12. Plot Saliency Maps
+
