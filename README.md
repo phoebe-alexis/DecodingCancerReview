@@ -124,4 +124,4 @@ This helps determine whether fewer, more relevant features (identified via LRP) 
 
 # 3. Expanding the Explainability Framework
 
-This script compares two feature attribution methods—LRP (Layer-wise Relevance Propagation) and SHAP (SHapley Additive exPlanations)—on the same dataset.
+This `saliency.py`and `normalized_saliency.py` compares two feature attribution methods—LRP (Layer-wise Relevance Propagation) and SHAP (SHapley Additive exPlanations)—on the same dataset.
