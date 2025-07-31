@@ -120,11 +120,13 @@ This helps determine whether fewer, more relevant features (identified via LRP) 
 
 # 2. Alternative models for Survival prediction
 
+## Extreme Gradient Boosting (XGBoos)
 
+## Transformer Models
 
 # 3. Expanding the Explainability Framework
 
-This `saliency.py`and `normalized_saliency.py` compares two feature attribution methods—LRP (Layer-wise Relevance Propagation) and SHAP (SHapley Additive exPlanations).
+The `saliency.py`and `normalized_saliency.py` scripts compare two feature attribution methods—LRP (Layer-wise Relevance Propagation) and SHAP (SHapley Additive exPlanations).
 
 1. Load LRP Results
 2. Get SHAP Sample Names
