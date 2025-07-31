@@ -120,7 +120,7 @@ This helps determine whether fewer, more relevant features (identified via LRP) 
 
 # 2. Alternative models for Survival prediction
 
-## Extreme Gradient Boosting (XGBoost)
+## 2.1 Extreme Gradient Boosting (XGBoost)
 
 The script `xgboost.py` assesses how well an XGBoost regressor can predict survival durations in a censored dataset, using stratified CV and survival-specific evaluation.
 
@@ -132,7 +132,17 @@ The script `xgboost.py` assesses how well an XGBoost regressor can predict survi
 4. Model Training & Evaluation (per fold)
 5. Results Aggregation
 
-## Transformer Models
+## 2.2 Transformer Models
+
+The script `transformer.py` assesses how well transformer model can predict survival durations in a censored dataset, using stratified CV and survival-specific evaluation.
+
+### Transformer Pipeline
+
+1. Data Preparation
+2. Preprocessing
+3. Cross-Validation Setup
+4. Model Training & Evaluation (per fold)
+5. Results Aggregation
 
 # 3. Expanding the Explainability Framework
 
