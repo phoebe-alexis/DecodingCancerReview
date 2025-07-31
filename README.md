@@ -120,7 +120,17 @@ This helps determine whether fewer, more relevant features (identified via LRP) 
 
 # 2. Alternative models for Survival prediction
 
-## Extreme Gradient Boosting (XGBoos)
+## Extreme Gradient Boosting (XGBoost)
+
+The script `xgboost.py` assesses how well an XGBoost regressor can predict survival durations in a censored dataset, using stratified CV and survival-specific evaluation.
+
+### XGBoost Pipleline
+
+1. Data Preparation
+2. Preprocessing
+3. Cross-Validation Setup
+4. Model Training & Evaluation (per fold)
+5. Results Aggregation
 
 ## Transformer Models
 
